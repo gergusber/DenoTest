@@ -1,0 +1,43 @@
+version: "3"
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  db:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: gertea
+      POSTGRES_PASSWORD: gerteasecret
+      POSTGRES_DB: trunk
+
+# version: "3"
+# services:
+#   db:
+#     image: postgres
+#     restart: always
+#     environment:
+#       POSTGRES_USER: gertea
+#       POSTGRES_PASSWORD: gerteasecret
+#       POSTGRES_DB: trunk
+#     ports:
+#       - "5432:5432"
+#     # volumes:
+#     #   - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+#   app:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     ports:
+#       - "8080:8080"
+#     depends_on:
+#       - db
+#     command: denon run --allow-net main.ts
+
